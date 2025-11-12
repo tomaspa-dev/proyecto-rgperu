@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RG Distribuciones Perú</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --verde-1: #3DA35D;
+            --verde-2: #2E7D32;
+            --verde-3: #66BB6A;
+            --footer-green: #ebfbee;
+            --card-green: #f4faf5;
+            --white: #ffffff;
+            --text: #222;
+            --muted: #667;
+            --header-h: 76px;
+            --transition-fast: .18s;
+            --transition-med: .32s;
+        }
+
+        /* Base reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+            color: var(--text);
+            background: #ffffff;
+            /* tal como confirmaste */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.8;
+            /* line-height aumentado */
+            font-size: 16px;
+            /* base slightly bigger */
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 120px 0;
+        }
+
+        /* mayor separación entre secciones */
+
+        /* Links and focus behavior
+   - Prevent the big focus rectangle when clicking with mouse
+   - Keep visible outline for keyboard users (:focus-visible)
+*/
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        a:focus {
+            outline: none
+        }
+
+        a:focus-visible {
+            outline: 3px solid rgba(46, 125, 50, 0.12);
+            outline-offset: 3px;
+            border-radius: 4px
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-h);
+            background: var(--white);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            z-index: 1400;
+            display: flex;
+            align-items: center;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: 8px
+        }
+
+        .logo .brand {
+            font-weight: 700;
+            color: var(--verde-2);
+            font-size: 1.05rem
+        }
+
+        .logo .tag {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        /* Desktop nav */
+        .nav-links {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+            list-style: none
+        }
+
+        .nav-links a {
+            position: relative;
+            color: var(--verde-2);
+            font-weight: 700;
+            padding: 10px 6px;
+            transition: color var(--transition-fast);
+        }
+
+        /* underline fine on both sides */
+        .nav-links a::before,
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: 6px;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, var(--verde-1), var(--verde-2));
+            transition: width var(--transition-med);
+        }
+
+        .nav-links a::before {
+            left: 50%;
+            transform: translateX(-50%) translateX(-8px);
+        }
+
+        .nav-links a::after {
+            left: 50%;
+            transform: translateX(-50%) translateX(8px);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            width: 36%;
+        }
+
+        .nav-links a:hover {
+            color: var(--verde-1);
+        }
+
+        /* Mobile: hamburger */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            align-items: center;
+            justify-content: center
+        }
+
+        .menu-toggle .bar {
+            width: 22px;
+            height: 2.6px;
+            background: var(--verde-2);
+            border-radius: 3px;
+            display: block;
+            margin: 4px 0;
+            transition: all .28s ease
+        }
+
+
+
+        /* mobile nav panel */
+        .nav-mobile {
+            position: fixed;
+            top: var(--header-h);
+            right: -100%;
+            width: 320px;
+            max-width: 86%;
+            height: calc(100vh - var(--header-h));
+            background: var(--white);
+            box-shadow: -12px 10px 40px rgba(0, 0, 0, 0.12);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 28px;
+            transition: right .32s ease;
+        }
+
+        .nav-mobile.open {
+            right: 0
+        }
+
+        .nav-mobile a {
+            color: var(--verde-2);
+            font-weight: 700;
+            padding: 8px 4px;
+            position: relative;
+            margin: 4px 0;
+            /* reduce separación */
+        }
+
+        /* same underline for mobile */
+        .nav-mobile a::after {
+            content: "";
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            width: 0;
+            background: var(--verde-1);
+            transition: width .3s ease;
+        }
+
+        .nav-mobile a:hover::after {
+            width: 70%;
+        }
+
+        /* ---------- HERO (slider) ---------- */
+        .hero {
+            margin-top: var(--header-h);
+            position: relative;
+            min-height: 82vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.1s ease;
+            transform: scale(1);
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero::after {
+            position: absolute;
+            inset: 0;
+            content: "";
+            background: linear-gradient(180deg, rgba(61, 163, 93, 0.34), rgba(46, 125, 50, 0.48));
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        /* hero content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1100px;
+            padding: 40px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            line-height: 1.02;
+            font-weight: 800;
+            margin-bottom: 18px;
+            text-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.96);
+            margin-bottom: 26px;
+        }
+
+        /* hero buttons with smooth transitions */
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color .4s ease, color .4s ease, box-shadow .4s ease, transform .25s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: var(--verde-2);
+            border: 2px solid rgba(255, 255, 255, 0.22);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(180deg, rgba(116, 197, 127, 0.95), rgba(102, 187, 106, 0.95));
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.18);
+            transform: translateY(-4px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.28);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* ---------- SECTIONS & TITLES ---------- */
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 88px;
+            height: 6px;
+            margin: 16px auto 0;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--verde-1), var(--verde-2));
+        }
+
+        /* ABOUT - cards with greenish bg */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            margin-top: 30px;
+        }
+
+        .about-card {
+            background: var(--card-green);
+            padding: 26px;
+            border-radius: 12px;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+            transition: box-shadow .28s ease, transform .28s ease;
+        }
+
+        .about-card:hover {
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+            transform: translateY(-6px);
+        }
+
+        .about-card h3 {
+            color: var(--verde-2);
+            margin-bottom: 10px;
+        }
+
+        /* SERVICES - 3 + 3 layout preserved */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 20px;
+        }
+
+        .service {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+            transition: box-shadow .28s ease;
+        }
+
+        .service:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        /* TEAM (video + card) */
+        .team-video {
+            max-width: 980px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-card {
+            background: var(--white);
+            padding: 20px;
+            margin-top: 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+        }
+
+        /* TESTIMONIALS / CASOS DE EXITO */
+        .casos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 20px;
+        }
+
+        .caso-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+            transition: box-shadow .28s ease;
+        }
+
+        .caso-card:hover {
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .caso-card p {
+            font-style: italic;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .caso-card .empresa {
+            display: block;
+            margin-top: 18px;
+            font-weight: 700;
+            color: var(--verde-2);
+            text-align: right;
+        }
+
+        /* GALLERY 3x2 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            min-height: 220px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+            transition: transform .28s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: linear-gradient(180deg, rgba(46, 125, 50, 0.0) 0%, rgba(46, 125, 50, 0.78) 85%);
+            opacity: 0;
+            transition: opacity .28s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Gallery Modal - big X outside image, no white frame */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2200;
+            padding: 28px;
+        }
+
+        .gallery-modal.active {
+            display: flex;
+        }
+
+        .gallery-modal .wrap {
+            position: relative;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-modal img {
+            max-width: 95vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .gallery-modal .close {
+            position: absolute;
+            top: -26px;
+            right: -26px;
+            font-size: 40px;
+            color: #fff;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 34px;
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #e9e9e9;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: none;
+        }
+
+        /* CONTACT info list spacing */
+        .contact-info p {
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+
+        /* FOOTER (4 rows stacked centered) */
+        footer {
+            background: var(--footer-green);
+            padding: 40px 0 28px;
+            color: var(--verde-2);
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .footer-logo a {
+            display: block;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .footer-logo img {
+            width: 84px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--verde-2);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--verde-1);
+            transition: width .28s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 80%;
+        }
+
+        .footer-copy {
+            font-weight: 700;
+            margin-top: 6px;
+            text-align: center;
+            color: var(--verde-2);
+        }
+
+        .footer-loc {
+            color: var(--muted);
+            font-size: .95rem;
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        /* responsive */
+        @media(max-width:1024px) {
+            .about-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .casos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:780px) {
+            .nav-links {
+                display: none
+            }
+
+            .menu-toggle {
+                display: flex
+            }
+
+            .section {
+                padding: 80px 20px
+            }
+
+            .hero-content h1 {
+                font-size: 2.4rem
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr
+            }
+
+            .casos-grid {
+                grid-template-columns: 1fr
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr
+            }
+
+            .footer-inner {
+                padding: 0 16px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container" aria-label="Principal">
+            <a href="#inicio" class="logo" aria-label="Inicio">
+                <img src="img/logo.png" alt="RG Distribuciones Perú">
+                <div>
+                    <div class="brand">RG Distribuciones Perú</div>
+                    <div class="tag">Distribuimos Sostenibilidad</div>
+                </div>
+            </a>
+
+            <nav class="nav-links" role="navigation" aria-label="Enlaces principales">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#casos">Testimonios</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav class="nav-mobile" id="navMobile" aria-hidden="true">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#casos">Testimonios</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero" aria-label="Portada">
+        <div class="slide active" style="background-image:url('img/img1.webp');"></div>
+        <div class="slide" style="background-image:url('img/img2.webp');"></div>
+
+        <div class="hero-content container">
+            <h1>Distribuimos Sostenibilidad en Todo el Perú</h1>
+            <p>Importación y distribución mayorista de envases ecológicos y biocompostables para el canal tradicional.
+            </p>
+            <div class="hero-buttons">
+                <a class="btn btn-primary" href="#servicios">Ver Productos</a>
+                <a class="btn btn-secondary" href="#contacto">Solicitar Cotización</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="nosotros" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="about-grid">
+                <div class="about-card card">
+                    <h3>Nuestra Misión</h3>
+                    <p>Impulsar la sostenibilidad distribuyendo productos ecológicos que respetan el medio ambiente y
+                        promueven el consumo responsable.</p>
+                </div>
+
+                <div class="about-card card">
+                    <h3>Nuestra Visión</h3>
+                    <p>Ser la empresa líder en distribución ecológica en el Perú, ofreciendo soluciones sostenibles para
+                        empresas y consumidores.</p>
+                </div>
+
+                <div class="about-card card">
+                    <h3>Nuestros Valores</h3>
+                    <p>Compromiso, responsabilidad y respeto hacia el planeta. Creemos que cada elección cuenta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="section" style="background:linear-gradient(180deg,#fbfff9,#f7fdf7);">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios y Productos</h2>
+            <div class="services-grid">
+                <div class="service">
+                    <h3>Envases Biodegradables</h3>
+                    <p>Alternativas ecológicas a plásticos convencionales.</p>
+                </div>
+                <div class="service">
+                    <h3>Bolsas Compostables</h3>
+                    <p>Fabricadas con materiales naturales y renovables.</p>
+                </div>
+                <div class="service">
+                    <h3>Utensilios Ecológicos</h3>
+                    <p>Hechos con bambú y materiales biodegradables.</p>
+                </div>
+                <div class="service">
+                    <h3>Papel Reciclado</h3>
+                    <p>Soluciones de empaque sostenibles para empresas.</p>
+                </div>
+                <div class="service">
+                    <h3>Asesoría Ambiental</h3>
+                    <p>Te ayudamos a reducir el impacto ambiental de tu negocio.</p>
+                </div>
+                <div class="service">
+                    <h3>Distribución Nacional</h3>
+                    <p>Cubrimos todo el Perú con logística eficiente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EQUIPO / VIDEO -->
+    <section id="equipo" class="section">
+        <div class="container">
+            <h2 class="section-title">Mensaje de Nuestro Equipo</h2>
+            <div class="team-video">
+                <!-- You can replace poster and source with real ones -->
+                <video controls poster="img/img3.webp">
+                    <source src="video.mp4" type="video/mp4">
+                    Tu navegador no soporta video.
+                </video>
+            </div>
+
+            <div class="team-card">
+                <p>"Trabajamos día a día para que la sostenibilidad sea accesible para todos. Cada producto que
+                    distribuimos es una oportunidad para cuidar nuestro planeta."</p>
+                <p style="margin-top:10px;font-weight:700;color:var(--verde-2)">— Joaquín Santiago Gamboa Guillén</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASOS DE EXITO -->
+    <section id="casos" class="section" style="background:linear-gradient(180deg,#fbfff9,#f7fdf7);">
+        <div class="container">
+            <h2 class="section-title">Casos de Éxito</h2>
+            <div class="casos-grid">
+                <div class="caso-card">
+                    <p>“Gracias a RG Distribuciones Perú, logramos reemplazar todos nuestros envases por opciones
+                        compostables sin elevar nuestros costos. El proceso de implementación fue claro y el equipo
+                        brindó soporte en cada etapa.”</p>
+                    <span class="empresa">Distribuidora Central, Lima</span>
+                </div>
+
+                <div class="caso-card">
+                    <p>“Excelente servicio y asesoría ambiental personalizada. Nos ayudaron a seleccionar soluciones que
+                        cumplieron con nuestras necesidades de producción y comunicación con clientes.”</p>
+                    <span class="empresa">Comercial Norte SAC, Trujillo</span>
+                </div>
+
+                <div class="caso-card">
+                    <p>“Su compromiso con la calidad y el medio ambiente ha fortalecido nuestra oferta. Los tiempos de
+                        entrega y la consistencia en los productos han sido determinantes.”</p>
+                    <span class="empresa">Eco Market Perú, Arequipa</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria" class="section">
+        <div class="container">
+            <h2 class="section-title">Galería de Productos</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-title="Envases Biodegradables"><img src="img/img3.webp"
+                        alt="Envases Biodegradables">
+                    <div class="gallery-overlay">
+                        <h3>Envases Biodegradables</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Vasos Compostables"><img src="img/img4.webp"
+                        alt="Vasos Compostables">
+                    <div class="gallery-overlay">
+                        <h3>Vasos Compostables</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Cubiertos Ecológicos"><img src="img/img5.webp"
+                        alt="Cubiertos Ecológicos">
+                    <div class="gallery-overlay">
+                        <h3>Cubiertos Ecológicos</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Platos Sostenibles"><img src="img/img6.webp"
+                        alt="Platos Sostenibles">
+                    <div class="gallery-overlay">
+                        <h3>Platos Sostenibles</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Bolsas Biocompostables"><img src="img/img3.webp"
+                        alt="Bolsas Biocompostables">
+                    <div class="gallery-overlay">
+                        <h3>Bolsas Biocompostables</h3>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Empaques Especiales"><img src="img/img4.webp"
+                        alt="Empaques Especiales">
+                    <div class="gallery-overlay">
+                        <h3>Empaques Especiales</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for gallery -->
+    <div class="gallery-modal" id="galleryModal" aria-hidden="true" role="dialog">
+        <div class="wrap">
+            <button class="close" id="modalClose" aria-label="Cerrar modal">✕</button>
+            <img id="modalImg" src="" alt="">
+        </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section" style="background:linear-gradient(180deg,#fbfff9,#f7fdf7);">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
+
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo</label>
+                                <input id="nombre" name="nombre" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input id="email" name="email" type="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input id="telefono" name="telefono" type="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa">Empresa</label>
+                                <input id="empresa" name="empresa" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="asunto">Asunto</label>
+                            <input id="asunto" name="asunto" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info">
+                        <p>📧 <strong>Email</strong><br><a
+                                href="mailto:info@rgdistribucionesperu.com">info@rgdistribucionesperu.com</a></p>
+                        <p>👤 <strong>Contacto Directo</strong><br><a
+                                href="mailto:joaquin.gamboa@rgdistribucionesperu.com">joaquin.gamboa@rgdistribucionesperu.com</a>
+                        </p>
+                        <p>📍 <strong>Ubicación</strong><br>Lima, Perú</p>
+                        <p>🌐 <strong>Web</strong><br><a href="https://www.rgdistribucionesperu.com" target="_blank"
+                                rel="noopener">www.rgdistribucionesperu.com</a></p>
+                        <p>💼 <strong>LinkedIn</strong><br><a
+                                href="https://www.linkedin.com/company/rg-distribuciones-perú" target="_blank"
+                                rel="noopener">Síguenos en LinkedIn</a></p>
+                        <p>🏢 <strong>Razón Social</strong><br>RG DISTRIBUCIONES PERU E.I.R.L.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (4 filas) -->
+    <footer>
+        <div class="footer-inner">
+            <!-- 1: logo row -->
+            <div class="footer-logo"><a href="#inicio"><img src="img/logo.png" alt="RG Distribuciones Perú"></a></div>
+
+            <!-- 2: links row -->
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#casos">Testimonios</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+
+            <!-- 3: copyright + slogan -->
+            <div class="footer-copy">© 2025 RG Distribuciones Perú E.I.R.L. - Distribuimos Sostenibilidad en Todo el
+                Perú</div>
+
+            <!-- 4: location / comercial -->
+            <div class="footer-loc">Lima, Perú | Venta Mayorista de Productos Ecológicos</div>
+        </div>
+    </footer>
+
+    <script>
+        /* ========== Mobile menu toggle (smooth icon transition) ========== */
+        (function () {
+            const toggle = document.getElementById('menuToggle');
+            const navMobile = document.getElementById('navMobile');
+            let open = false;
+            toggle.addEventListener('click', function (e) {
+                open = !open;
+                this.classList.toggle('active', open);
+                // animate bars
+                const bars = this.querySelectorAll('.bar');
+                if (open) {
+                    bars[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+                    bars[1].style.opacity = '0';
+                    bars[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+                    navMobile.classList.add('open');
+                    navMobile.setAttribute('aria-hidden', 'false');
+                    this.setAttribute('aria-expanded', 'true');
+                } else {
+                    bars[0].style.transform = '';
+                    bars[1].style.opacity = '';
+                    bars[2].style.transform = '';
+                    navMobile.classList.remove('open');
+                    navMobile.setAttribute('aria-hidden', 'true');
+                    this.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // reduce spacing between mobile links visually: handled in CSS, close on click
+            navMobile.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navMobile.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    const bars = toggle.querySelectorAll('.bar');
+                    bars[0].style.transform = ''; bars[1].style.opacity = ''; bars[2].style.transform = '';
+                });
+            });
+
+            // click outside closes
+            document.addEventListener('click', function (ev) {
+                if (open) {
+                    const inside = navMobile.contains(ev.target) || toggle.contains(ev.target);
+                    if (!inside) {
+                        navMobile.classList.remove('open'); toggle.classList.remove('active'); open = false;
+                        toggle.setAttribute('aria-expanded', 'false');
+                        const bars = toggle.querySelectorAll('.bar');
+                        bars[0].style.transform = ''; bars[1].style.opacity = ''; bars[2].style.transform = '';
+                    }
+                }
+            });
+        })();
+
+        /* ========== Hero slider (auto fade) ========== */
+        (function () {
+            const slides = document.querySelectorAll('.slide');
+            let idx = 0;
+            const len = slides.length;
+            const interval = 6000; // 6s
+            function show(i) {
+                slides.forEach((s, j) => s.classList.toggle('active', i === j));
+            }
+            show(0);
+            setInterval(() => { idx = (idx + 1) % len; show(idx); }, interval);
+        })();
+
+        /* ========== Smooth scroll for anchor links (with header offset) ========== */
+        (function () {
+            function offsetScroll(targetEl) {
+                const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 76;
+                const top = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight + 8;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.length > 1) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            offsetScroll(target);
+                            // close mobile if open
+                            const navMobile = document.getElementById('navMobile');
+                            const toggle = document.getElementById('menuToggle');
+                            if (navMobile.classList.contains('open')) {
+                                navMobile.classList.remove('open');
+                                toggle.classList.remove('active');
+                                toggle.setAttribute('aria-expanded', 'false');
+                                const bars = toggle.querySelectorAll('.bar'); bars[0].style.transform = ''; bars[1].style.opacity = ''; bars[2].style.transform = '';
+                            }
+                            // update URL (optional)
+                            history.replaceState(null, null, href);
+                        }
+                    }
+                });
+            });
+        })();
+
+        /* ========== Gallery modal (no white frame, big X) ========== */
+        (function () {
+            const items = document.querySelectorAll('.gallery-item');
+            const modal = document.getElementById('galleryModal');
+            const modalImg = document.getElementById('modalImg');
+            const closeBtn = document.getElementById('modalClose');
+
+            items.forEach(it => {
+                it.addEventListener('click', () => {
+                    const img = it.querySelector('img');
+                    modalImg.src = img.src;
+                    modalImg.alt = img.alt || it.dataset.title || '';
+                    modal.classList.add('active');
+                    modal.setAttribute('aria-hidden', 'false');
+                    // focus the close button for a11y
+                    setTimeout(() => closeBtn.focus(), 160);
+                });
+            });
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                modalImg.src = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+            });
+        })();
+
+        /* ========== Contact form (mailto placeholder) ========== */
+        (function () {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const nombre = document.getElementById('nombre').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const telefono = document.getElementById('telefono').value.trim();
+                const empresa = document.getElementById('empresa').value.trim();
+                const asunto = document.getElementById('asunto').value.trim() || 'Contacto desde web';
+                const mensaje = document.getElementById('mensaje').value.trim();
+                const subject = encodeURIComponent(asunto + ' - ' + nombre);
+                const body = encodeURIComponent('Nombre: ' + nombre + '\nEmail: ' + email + '\nTel: ' + telefono + '\nEmpresa: ' + empresa + '\n\nMensaje:\n' + mensaje);
+                window.location.href = 'mailto:info@rgdistribucionesperu.com?subject=' + subject + '&body=' + body;
+            });
+        })();
+
+        /* prevent dragging images */
+        document.querySelectorAll('img').forEach(img => { img.ondragstart = () => false; });
+    </script>
+</body>
+
+</html>

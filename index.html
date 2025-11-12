@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>RG Distribuciones Perú - Distribuimos Sostenibilidad</title>
-
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Para Apple (pantallas de inicio iOS) -->
+    <link rel="apple-touch-icon" href="favicon.ico">
+    <!-- Para asegurar compatibilidad -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet">
 
@@ -17,6 +21,8 @@
             /* bosque */
             --verde-3: #66BB6A;
             /* claro */
+            --footer-green: #ebfbee;
+            --verde-claro: #e8f5e7;
             --verde-claro-bg: #f5fbf6;
             /* footer / suaves */
             --bg-soft: #f7fbf7;
@@ -49,6 +55,41 @@
             line-height: 1.5;
             scroll-behavior: smooth;
         }
+
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 120px 0;
+        }
+
+        /* mayor separación entre secciones */
+
+        /* Links and focus behavior
+        - Prevent the big focus rectangle when clicking with mouse
+        - Keep visible outline for keyboard users (:focus-visible)
+*/
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        a:focus {
+            outline: none
+        }
+
+        a:focus-visible {
+            outline: 3px solid rgba(46, 125, 50, 0.12);
+            outline-offset: 3px;
+            border-radius: 4px
+        }
+
+
 
         /* ---------- HEADER ---------- */
         header {
@@ -154,7 +195,7 @@
 
         /* both sides visible */
         .nav-links a:hover {
-            color: var(--verde-2);
+            color: var(--verde-1);
         }
 
         /* ---------- MOBILE HAMBURGER (svg toggled) ---------- */
@@ -180,17 +221,18 @@
             top: var(--header-h);
             right: 0;
             width: 320px;
-            max-width: 88%;
+            max-width: 86%;
             height: calc(100vh - var(--header-h));
             background: var(--white);
-            box-shadow: -14px 10px 48px rgba(0, 0, 0, 0.12);
+            box-shadow: -14px 10px 40px rgba(0, 0, 0, 0.12);
             transform: translateX(110%);
             transition: transform var(--transition-medium);
             z-index: 1300;
             padding: 28px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 12px;
+            justify-content: flex-start;
         }
 
         .mobile-nav.open {
@@ -202,6 +244,7 @@
             font-weight: 800;
             text-decoration: none;
             font-size: 1.05rem;
+            padding: 8px 4px;
         }
 
         /* ---------- HERO ---------- */
@@ -229,7 +272,7 @@
             background-position: center;
             opacity: 0;
             transition: opacity 1.2s ease;
-            filter: contrast(.98) saturate(1.05);
+            filter: brightness(0.7) contrast(.95) saturate(1.05);
         }
 
         .hero-slide.active {
@@ -287,7 +330,8 @@
             border: none;
             text-decoration: none;
             box-shadow: 0 12px 36px rgba(0, 0, 0, 0.14);
-            transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium), color var(--transition-medium);
+            /* transition: transform var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium), color var(--transition-medium); */
+            transition: background-color .4s ease, color .4s ease, box-shadow .4s ease, transform .25s ease;
         }
 
         .btn-primary {
@@ -331,7 +375,7 @@
             font-weight: 900;
             text-align: center;
             color: var(--gris-oscuro);
-            margin-bottom: 14px;
+            margin-bottom: 3.5rem;
         }
 
         .section-title::after {
@@ -413,7 +457,19 @@
             background: #000;
         }
 
+        .team-card {
+            background: var(--white);
+            padding: 20px;
+            margin-top: 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+        }
+
         /* TESTIMONIALS (cards only shadow on hover) */
+        #testimonios {
+            background: var(--verde-claro);
+        }
+
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -423,10 +479,13 @@
 
         .testimonial-card {
             background: var(--white);
-            padding: 22px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             transition: box-shadow var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .testimonial-card:hover {
@@ -531,16 +590,14 @@
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 34px;
-            align-items: start;
-            margin-top: 18px;
+            gap: 3.5rem;
         }
 
         .contact-form {
-            background: var(--white);
-            padding: 26px;
+            background: #fff;
+            padding: 22px;
             border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
         }
 
         .form-row {
@@ -550,15 +607,11 @@
             margin-bottom: 12px;
         }
 
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 700;
-            color: var(--gris-oscuro);
+            color: var(--text);
         }
 
         input[type="text"],
@@ -567,38 +620,45 @@
         textarea {
             width: 100%;
             padding: 12px 14px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #e9e9e9;
             font-size: 1rem;
             font-family: inherit;
         }
 
         textarea {
-            min-height: 160px;
+            min-height: 150px;
             resize: none;
         }
 
-        /* CONTACT info spacing */
+        /* CONTACT info list spacing */
         .contact-info p {
             margin-bottom: 14px;
-            color: var(--gris-oscuro);
+            color: var(--text);
         }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+        }
+
 
         /* FOOTER: 3 rows (links / copyright / location) with very light green bg */
         footer {
-            background: linear-gradient(180deg, rgba(245, 252, 246, 1), rgba(240, 250, 240, 1));
-            padding: 34px 20px;
+            /* background: linear-gradient(180deg, rgba(245, 252, 246, 1), rgba(240, 250, 240, 1)); */
+            background: var(--footer-green);
+            padding: 40px 0 28px;
             border-top: 1px solid rgba(0, 0, 0, 0.04);
+            color: var(--verde-2);
         }
 
         .footer-inner {
-            max-width: 1280px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
         }
 
         .footer-left {
@@ -614,7 +674,6 @@
             object-fit: contain;
             border-radius: 8px;
             padding: 6px;
-            background: rgba(0, 0, 0, 0.03);
         }
 
         .footer-links-row {
@@ -624,6 +683,13 @@
             margin-top: 18px;
             gap: 24px;
             flex-wrap: wrap;
+        }
+
+
+        .footer-links-row a {
+            color: var(--verde-2);
+            font-weight: 600;
+            position: relative;
         }
 
         .footer-copy-row {
@@ -759,9 +825,24 @@
         }
 
         /* accessibility focus */
-        a:focus {
+        /* a:focus {
             outline: 3px solid rgba(46, 125, 50, 0.12);
             outline-offset: 3px;
+        } */
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        a:focus {
+            outline: none
+        }
+
+        a:focus-visible {
+            outline: 3px solid rgba(46, 125, 50, 0.12);
+            outline-offset: 3px;
+            border-radius: 4px
         }
     </style>
 </head>
@@ -837,36 +918,41 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="nosotros" class="container">
-        <h2 class="section-title">Sobre Nosotros</h2>
-        <p style="text-align:center; color:var(--gris-medio); max-width:960px; margin:0 auto 22px;">
-            RG Distribuciones Perú E.I.R.L. es una empresa especializada en la importación y distribución mayorista de
-            envases ecológicos y biocompostables en el canal tradicional. Impulsamos el cambio hacia un consumo
-            responsable, ofreciendo productos de calidad, acompañamiento técnico y logística confiable en todo el
-            territorio nacional.
-        </p>
+    <section id="nosotros" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <p style="text-align:center; color:var(--gris-medio); max-width:960px; margin:0 auto 22px;">
+                RG Distribuciones Perú E.I.R.L. es una empresa especializada en la importación y distribución mayorista
+                de
+                envases ecológicos y biocompostables en el canal tradicional. Impulsamos el cambio hacia un consumo
+                responsable, ofreciendo productos de calidad, acompañamiento técnico y logística confiable en todo el
+                territorio nacional.
+            </p>
 
-        <div class="about-grid">
-            <div class="about-card animate-hidden">
-                <h3>🎯 Nuestra Misión</h3>
-                <p>Abastecer a distribuidores, negocios y empresas del sector tradicional con productos sostenibles de
-                    alta calidad, asesoría técnica y un servicio logístico puntual.</p>
-            </div>
-            <div class="about-card animate-hidden">
-                <h3>👁️ Nuestra Visión</h3>
-                <p>Ser la referencia nacional en distribución de soluciones ecológicas, promoviendo prácticas
-                    sostenibles que beneficien al negocio y al ambiente.</p>
-            </div>
-            <div class="about-card animate-hidden">
-                <h3>💚 Nuestros Valores</h3>
-                <p>Responsabilidad ambiental, calidad en el servicio, transparencia comercial, innovación y compromiso
-                    con el cliente.</p>
+            <div class="about-grid">
+                <div class="about-card animate-hidden">
+                    <h3>🎯 Nuestra Misión</h3>
+                    <p>Abastecer a distribuidores, negocios y empresas del sector tradicional con productos sostenibles
+                        de
+                        alta calidad, asesoría técnica y un servicio logístico puntual.</p>
+                </div>
+                <div class="about-card animate-hidden">
+                    <h3>👁️ Nuestra Visión</h3>
+                    <p>Ser la referencia nacional en distribución de soluciones ecológicas, promoviendo prácticas
+                        sostenibles que beneficien al negocio y al ambiente.</p>
+                </div>
+                <div class="about-card animate-hidden">
+                    <h3>💚 Nuestros Valores</h3>
+                    <p>Responsabilidad ambiental, calidad en el servicio, transparencia comercial, innovación y
+                        compromiso
+                        con el cliente.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="servicios" style="background:linear-gradient(180deg,#fafcfb,#f3f9f3);">
+    <section id="servicios" class="section" style="background:linear-gradient(180deg,#fafcfb,#f3f9f3);">
         <div class="container">
             <h2 class="section-title">Nuestros Servicios y Productos</h2>
 
@@ -907,30 +993,36 @@
     </section>
 
     <!-- VIDEO / TEAM MESSAGE -->
-    <section id="equipo" class="container">
-        <h2 class="section-title">Mensaje de Nuestro Equipo</h2>
-        <div class="video-container animate-hidden">
-            <div class="video-frame">
-                <!-- pon aquí tu video real -->
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video"
-                    style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
-            </div>
+    <section id="equipo" class="section">
+        <div class="container">
+            <h2 class="section-title">Mensaje de Nuestro Equipo</h2>
+            <div class="video-container animate-hidden">
+                <div class="video-frame">
+                    <video autoplay muted loop playsinline controls
+                        style="width:100%;height:100%;border:0;border-radius:12px;">
+                        <source src="videos/video-rg.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                </div>
 
-            <div style="margin-top:20px; background:var(--white); padding:18px; border-radius:12px;">
-                <h3 style="color:var(--verde-2); margin-bottom:8px;">Joaquín Santiago Gamboa Guillén</h3>
-                <p style="color:var(--gris-medio);">"En RG Distribuciones Perú creemos que la sostenibilidad es una
-                    oportunidad de negocio. Trabajamos con proveedores certificados y una logística preparada para
-                    atender a distribuidores y comercios en todo el Perú. Nuestro objetivo es facilitar la transición a
-                    envases y empaques que respeten el medio ambiente, sin complicar la operación diaria de tu negocio."
-                </p>
-                <p style="color:var(--gris-medio); margin-top:8px;">Si deseas, en la demo te muestro ejemplos de casos
-                    reales y tiempos de implementación.</p>
+
+                <div class="team-card">
+                    <p>"En RG Distribuciones Perú creemos que la sostenibilidad es una
+                        oportunidad de negocio. Trabajamos día a día para que la sostenibilidad sea accesible para
+                        todos. Cada producto que
+                        distribuimos es una oportunidad para cuidar nuestro planeta.Nuestro objetivo es facilitar la
+                        transición a
+                        envases y empaques que respeten el medio ambiente, sin complicar la operación diaria de tu
+                        negocio."</p>
+                    <p style="margin-top:10px;font-weight:700;color:var(--verde-2)">— Joaquín Santiago Gamboa Guillén
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- TESTIMONIALS / CASOS DE ÉXITO -->
-    <section id="testimonios" style="background:linear-gradient(180deg,#f6fbf7,#f2f9f2);">
+    <section id="testimonios">
         <div class="container">
             <h2 class="section-title">Casos de Éxito</h2>
             <div class="testimonial-grid">
@@ -959,41 +1051,45 @@
     </section>
 
     <!-- GALLERY -->
-    <section id="galeria" class="container">
-        <h2 class="section-title">Galería de Productos</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item" data-title="Envases Biodegradables"><img src="img/img3.webp"
-                    alt="Envases Biodegradables">
-                <div class="gallery-overlay">
-                    <h3>Envases Biodegradables</h3>
+    <section id="galeria" class="section">
+        <div class="container">
+            <h2 class="section-title">Galería de Productos</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-title="Envases Biodegradables"><img src="img/img3.webp"
+                        alt="Envases Biodegradables">
+                    <div class="gallery-overlay">
+                        <h3>Envases Biodegradables</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item" data-title="Vasos Compostables"><img src="img/img4.webp" alt="Vasos Compostables">
-                <div class="gallery-overlay">
-                    <h3>Vasos Compostables</h3>
+                <div class="gallery-item" data-title="Vasos Compostables"><img src="img/img4.webp"
+                        alt="Vasos Compostables">
+                    <div class="gallery-overlay">
+                        <h3>Vasos Compostables</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item" data-title="Cubiertos Ecológicos"><img src="img/img5.webp"
-                    alt="Cubiertos Ecológicos">
-                <div class="gallery-overlay">
-                    <h3>Cubiertos Ecológicos</h3>
+                <div class="gallery-item" data-title="Cubiertos Ecológicos"><img src="img/img5.webp"
+                        alt="Cubiertos Ecológicos">
+                    <div class="gallery-overlay">
+                        <h3>Cubiertos Ecológicos</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item" data-title="Platos Sostenibles"><img src="img/img6.webp" alt="Platos Sostenibles">
-                <div class="gallery-overlay">
-                    <h3>Platos Sostenibles</h3>
+                <div class="gallery-item" data-title="Platos Sostenibles"><img src="img/img6.webp"
+                        alt="Platos Sostenibles">
+                    <div class="gallery-overlay">
+                        <h3>Platos Sostenibles</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item" data-title="Bolsas Biocompostables"><img src="img/img3.webp"
-                    alt="Bolsas Biocompostables">
-                <div class="gallery-overlay">
-                    <h3>Bolsas Biocompostables</h3>
+                <div class="gallery-item" data-title="Bolsas Biocompostables"><img src="img/img3.webp"
+                        alt="Bolsas Biocompostables">
+                    <div class="gallery-overlay">
+                        <h3>Bolsas Biocompostables</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item" data-title="Empaques Especiales"><img src="img/img4.webp"
-                    alt="Empaques Especiales">
-                <div class="gallery-overlay">
-                    <h3>Empaques Especiales</h3>
+                <div class="gallery-item" data-title="Empaques Especiales"><img src="img/img4.webp"
+                        alt="Empaques Especiales">
+                    <div class="gallery-overlay">
+                        <h3>Empaques Especiales</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1008,70 +1104,87 @@
     </div>
 
     <!-- CONTACT -->
-    <section id="contacto" class="container">
-        <h2 class="section-title">Contáctanos</h2>
+    <section id="contacto" class="section" style="background:linear-gradient(180deg,#fbfff9,#f7fdf7);">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
 
-        <div class="contact-grid">
-            <div class="contact-form">
-                <form id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre">Nombre Completo</label>
-                            <input id="nombre" name="nombre" type="text" required>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo</label>
+                                <input id="nombre" name="nombre" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input id="email" name="email" type="email" required>
+                            </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input id="telefono" name="telefono" type="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa">Empresa</label>
+                                <input id="empresa" name="empresa" type="text">
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label for="email">Correo Electrónico</label>
-                            <input id="email" name="email" type="email" required>
+                            <label for="asunto">Asunto</label>
+                            <input id="asunto" name="asunto" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" style="width:100%;">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info">
+                        <h3 style="color:var(--verde-2); margin-bottom:8px;">Contacto</h3>
+                        <div class="contact-item">
+                            <p>📧 <strong>Email</strong><br><a href="mailto:info@rgdistribucionesperu.com"
+                                    style="color:var(--gris-oscuro); text-decoration:none;">info@rgdistribucionesperu.com</a>
+                            </p>
+                        </div>
+                        <div class="contact-item">
+                            <p>👤 <strong>Contacto Directo</strong><br><a
+                                    href="mailto:joaquin.gamboa@rgdistribucionesperu.com"
+                                    style="color:var(--gris-oscuro); text-decoration:none;">joaquin.gamboa@rgdistribucionesperu.com</a>
+                            </p>
+                        </div>
+
+                        <div class="contact-item">
+                            <p>📍 <strong>Ubicación</strong><br>Lima, Perú</p>
+                        </div>
+
+                        <div class="contact-item">
+                            <p>🌐 <strong>Web</strong><br><a href="https://www.rgdistribucionesperu.com" target="_blank"
+                                    rel="noopener"
+                                    style="color:var(--verde-2); text-decoration:none;">www.rgdistribucionesperu.com</a>
+                            </p>
+                        </div>
+                        <div class="contact-item">
+                            <p>💼 <strong>LinkedIn</strong><br><a
+                                    href="https://www.linkedin.com/company/rg-distribuciones-per%C3%BA" target="_blank"
+                                    rel="noopener"
+                                    style="color:var(--verde-2); font-weight:800; text-decoration:none;">Síguenos
+                                    en
+                                    LinkedIn</a></p>
+                        </div>
+                        <div class="contact-item">
+                            <p>🏢 <strong>Razón Social</strong><br>RG DISTRIBUCIONES PERU E.I.R.L.</p>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input id="telefono" name="telefono" type="tel">
-                        </div>
-                        <div class="form-group">
-                            <label for="empresa">Empresa</label>
-                            <input id="empresa" name="empresa" type="text">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="asunto">Asunto</label>
-                        <input id="asunto" name="asunto" type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-                    </div>
-
-                    <button class="btn btn-primary" type="submit" style="width:100%;">Enviar Mensaje</button>
-                </form>
-            </div>
-
-            <div class="contact-info">
-                <h3 style="color:var(--verde-2); margin-bottom:8px;">Contacto</h3>
-
-                <p>📧 <strong>Email</strong><br><a href="mailto:info@rgdistribucionesperu.com"
-                        style="color:var(--gris-oscuro); text-decoration:none;">info@rgdistribucionesperu.com</a></p>
-
-                <p>👤 <strong>Contacto Directo</strong><br><a href="mailto:joaquin.gamboa@rgdistribucionesperu.com"
-                        style="color:var(--gris-oscuro); text-decoration:none;">joaquin.gamboa@rgdistribucionesperu.com</a>
-                </p>
-
-                <p>📍 <strong>Ubicación</strong><br>Lima, Perú</p>
-
-                <p>🌐 <strong>Web</strong><br><a href="https://www.rgdistribucionesperu.com" target="_blank"
-                        rel="noopener"
-                        style="color:var(--verde-2); text-decoration:none;">www.rgdistribucionesperu.com</a></p>
-
-                <p>💼 <strong>LinkedIn</strong><br><a
-                        href="https://www.linkedin.com/company/rg-distribuciones-per%C3%BA" target="_blank"
-                        rel="noopener" style="color:var(--verde-2); font-weight:800; text-decoration:none;">Síguenos en
-                        LinkedIn</a></p>
-
-                <p>🏢 <strong>Razón Social</strong><br>RG DISTRIBUCIONES PERU E.I.R.L.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1079,12 +1192,14 @@
     <!-- FOOTER with 3 rows -->
     <footer>
         <div class="footer-inner">
+
             <div class="footer-left">
-                <img src="img/logo.png" alt="Logo RG">
+                <a href="#inicio"><img src="img/logo.png" alt="RG Distribuciones Perú"></a>
                 <div>
                     <div style="font-weight:800; color:var(--verde-2);">RG Distribuciones Perú</div>
                     <div style="font-size:.95rem; color:var(--gris-medio);">Distribuimos Sostenibilidad</div>
                 </div>
+
             </div>
 
             <div class="footer-links-row">
