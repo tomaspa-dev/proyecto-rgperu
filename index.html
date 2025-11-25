@@ -278,8 +278,36 @@
             display: none;
         }
 
-
         /* --- MEDIA QUERIES (Responsividad) --- */
+
+        /* Ajustes para LG (Desktop - 3 columnas) - Lógica de Conectores Unificada (1-7 Lineal) */
+        @media (min-width: 1024px) {
+
+            /* Mostrar H-connector entre elementos 1->2, 2->3, 4->5, 5->6 (indices 1, 2, 4, 5) */
+            .puzzle-row .puzzle-card-container:nth-child(1) .h-connector,
+            .puzzle-row .puzzle-card-container:nth-child(2) .h-connector,
+            .puzzle-row .puzzle-card-container:nth-child(4) .h-connector,
+            .puzzle-row .puzzle-card-container:nth-child(5) .h-connector {
+                display: block;
+                left: calc(100%);
+                width: 24px;
+            }
+
+            /* Conector Vertical de Fila 1 a Fila 2 (Paso 3) */
+            .puzzle-row .puzzle-card-container:nth-child(3) .v-connector {
+                display: block;
+                bottom: -60px;
+                left: 50%;
+            }
+
+            /* Conector Vertical de Fila 2 a Fila 3 (Paso 6) */
+            .puzzle-row .puzzle-card-container:nth-child(6) .v-connector {
+                display: block;
+                bottom: -60px;
+                left: 50%;
+            }
+        }
+
 
         /* Ajustes para MD (768px - 1023px) - Corrección de la lógica para el flujo 2x2 */
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -291,7 +319,6 @@
 
             /* --- CONECTORES EN MD (2x2) --- */
             /* Horizontal (L->R) para elementos impares (1, 3, 5) que están a la izquierda */
-            /* Usamos md:order-* para que el nth-child coincida con 1, 3, 5 visualmente */
             .puzzle-row .puzzle-card-container:nth-child(odd):not(:nth-child(7)) .h-connector {
                 display: block !important;
                 left: calc(100%);
@@ -313,7 +340,6 @@
             }
         }
 
-
         /* Ajustes para SM (Mobile - 1 columna) */
         @media (max-width: 767px) {
             .puzzle-row {
@@ -328,30 +354,29 @@
                 display: none !important;
             }
 
-            /* Conector vertical entre cada tarjeta en móvil, excepto el último */
+            /* Conector vertical entre cada tarjeta en móvil, excepto el último (el 7) */
             .v-connector {
                 display: block !important;
                 height: 40px;
                 bottom: -40px;
             }
 
-            /* Ocultar V-connector en la última tarjeta del último row */
-            .puzzle-row:last-child .puzzle-card:last-child .v-connector {
+            /* Ocultar V-connector en la última tarjeta (Paso 7) */
+            .puzzle-row .puzzle-card-container:last-child .v-connector {
                 display: none !important;
             }
 
-            /* Asegurar el orden lineal en móvil */
-            .puzzle-row-2 .puzzle-card:nth-child(1) {
-                order: initial;
+            /* Asegurar que no haya ordenamiento forzado en móvil */
+            .puzzle-row .puzzle-card-container {
+                order: initial !important;
             }
+        }
 
-            .puzzle-row-2 .puzzle-card:nth-child(2) {
-                order: initial;
-            }
-
-            .puzzle-row-2 .puzzle-card:nth-child(3) {
-                order: initial;
-            }
+        /* Eliminamos las clases de ordenamiento viejas que solo causaban conflictos */
+        .puzzle-row-lg-3,
+        .puzzle-row-md-2 {
+            /* Se usan estas clases en el HTML, pero no definiremos estilos específicos para ellas,
+            sino que nos enfocaremos en .puzzle-row */
         }
     </style>
 </head>
@@ -384,7 +409,7 @@
                         :class="scrolled ? 'h-10 md:h-10 lg:h-12' : 'h-14 md:h-12 lg:h-14'">
 
                     <div class="flex-col justify-center whitespace-nowrap ml-3 hidden xl:flex" x-show="!scrolled">
-                        <h1 class="font-heading font-extrabold text-white text-xl leading-none tracking-tight">
+                        <h1 class="font-heading font-extrabold text-white text-lg leading-none tracking-tight">
                             RG Distribuciones Perú
                         </h1>
                         <span class="text-[12px] font-bold tracking-widest uppercase mt-0.5 text-brand-accent">
@@ -393,7 +418,7 @@
                     </div>
 
                     <div class="flex-col justify-center whitespace-nowrap ml-3 hidden xl:flex" x-show="scrolled">
-                        <h1 class="font-heading font-extrabold text-gray-800 text-xl leading-none tracking-tight">
+                        <h1 class="font-heading font-extrabold text-gray-800 text-lg leading-none tracking-tight">
                             RG Distribuciones Perú
                         </h1>
                         <span class="text-[12px] font-bold tracking-widest uppercase mt-0.5 text-brand-main">
@@ -457,7 +482,7 @@
         </header>
 
         <section id="inicio" class="relative h-screen flex items-center overflow-hidden bg-gray-900" x-data="{ 
-                     images: ['img/img1.webp', 'img/img2.webp'], 
+                     images: ['img/img10.webp', 'img/img12.webp', 'img/img11.webp', 'img/img9.webp'], 
                      active: 0 
                  }" x-init="setInterval(() => { active = (active + 1) % images.length }, 5000)">
 
@@ -470,7 +495,7 @@
             <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/40 to-transparent z-10">
             </div>
 
-            <div class="relative z-20 container mx-auto px-6 lg:px-12 flex items-center h-full">
+            <div class="relative z-20 container mx-auto px-6 lg:px-12 flex items-center h-full pt-24 lg:pt-32">
                 <div class="md:w-4/5 lg:w-3/5 text-white" data-aos="fade-up" data-aos-duration="1000">
 
                     <div
@@ -581,7 +606,7 @@
                             <i class="fas fa-box-open"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Envases Ecológicos</h3>
-                        <p class="text-sm text-gray-500">Gama biodegradable y compostable para alimentos y catering
+                        <p class="text-gray-500 text-sm">Gama biodegradable y compostable para alimentos y catering
                             profesional.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 ease-out group border-b-4 border-transparent hover:border-brand-accent"
@@ -591,7 +616,7 @@
                             <i class="fas fa-leaf"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Biocompostables</h3>
-                        <p class="text-sm text-gray-500">Soluciones que se degradan naturalmente sin contaminar.</p>
+                        <p class="text-gray-500 text-sm">Soluciones que se degradan naturalmente sin contaminar.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 ease-out group border-b-4 border-transparent hover:border-brand-dark"
                         data-aos="fade-up" data-aos-delay="200">
@@ -600,7 +625,7 @@
                             <i class="fas fa-truck-fast"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Distribución Nacional</h3>
-                        <p class="text-sm text-gray-500">Logística eficiente en Lima y provincias con tiempos
+                        <p class="text-gray-500 text-sm">Logística eficiente en Lima y provincias con tiempos
                             transparentes.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 ease-out group border-b-4 border-transparent hover:border-brand-main"
@@ -610,7 +635,7 @@
                             <i class="fas fa-handshake"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Atención Mayorista</h3>
-                        <p class="text-sm text-gray-500">Planes de precios dedicados para distribuidores y cadenas.</p>
+                        <p class="text-gray-500 text-sm">Planes de precios dedicados para distribuidores y cadenas.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 ease-out group border-b-4 border-transparent hover:border-brand-accent"
                         data-aos="fade-up" data-aos-delay="100">
@@ -619,7 +644,7 @@
                             <i class="fas fa-recycle"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Asesoría Ecológica</h3>
-                        <p class="text-sm text-gray-500">Te ayudamos con certificaciones y comunicación de
+                        <p class="text-gray-500 text-sm">Te ayudamos con certificaciones y comunicación de
                             sostenibilidad.</p>
                     </div>
                     <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 ease-out group border-b-4 border-transparent hover:border-brand-dark"
@@ -629,7 +654,7 @@
                             <i class="fas fa-pen-ruler"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-2">Personalización</h3>
-                        <p class="text-sm text-gray-500">Diseños y empaques a medida para potenciar tu branding.</p>
+                        <p class="text-gray-500 text-sm">Diseños y empaques a medida para potenciar tu branding.</p>
                     </div>
                 </div>
 
@@ -642,143 +667,140 @@
                         <h2 class="font-heading font-bold text-3xl md:text-4xl text-brand-dark mt-2 mb-4">
                             Cadena de Suministro Sostenible (7 Pasos)
                         </h2>
-                        <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                             Cada paso está optimizado para la eficiencia y el mínimo impacto ambiental.
                         </p>
                     </div>
 
-                    <div class="space-y-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative puzzle-row">
 
-                        <div
-                            class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative puzzle-row puzzle-row-1 puzzle-row-lg-3 puzzle-row-md-2 md:grid-cols-2">
-
-                            <div class="relative puzzle-card-container" data-aos="fade-right" data-aos-delay="0">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">1</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Materias Primas</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i class="fas fa-seedling icon-anim"></i>
-                                    </div>
-                                    <p class="text-sm text-gray-600">Origen vegetal certificado (PLA, Bagazo). Insumos
-                                        100% renovables.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
+                        <div class="relative puzzle-card-container lg:order-1 md:order-1" data-aos="fade-right"
+                            data-aos-delay="0">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">1</span>
                                 </div>
-                            </div>
-
-                            <div class="relative puzzle-card-container" data-aos="fade-right" data-aos-delay="200">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">2</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Producción
-                                        Sostenible</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i class="fas fa-industry icon-anim"></i>
-                                    </div>
-                                    <p class="text-sm text-gray-600">Procesos de baja emisión de carbono y gestión de
-                                        residuos. Calidad certificada.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Materias Primas</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-seedling icon-anim"></i>
                                 </div>
-                            </div>
-
-                            <div class="relative puzzle-card-container" data-aos="fade-right" data-aos-delay="400">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">3</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Transporte Logístico
-                                        (Origen)</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i class="fas fa-ship icon-anim"></i>
-                                    </div>
-                                    <p class="text-sm text-gray-600">Importación optimizada de carga y selección de
-                                        rutas con menor huella.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
-                                </div>
+                                <p class="text-sm text-gray-600">Origen vegetal certificado (PLA, Bagazo). Insumos
+                                    100% renovables.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
                             </div>
                         </div>
 
-                        <div
-                            class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative puzzle-row puzzle-row-2 puzzle-row-lg-3 puzzle-row-md-2 md:grid-cols-2">
-
-                            <div class="relative puzzle-card-container" data-aos="fade-left" data-aos-delay="600">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">4</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Centro de
-                                        Distribución/Almacén</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i
-                                            class="fas fa-warehouse icon-anim"></i></div>
-                                    <p class="text-sm text-gray-600">Control de calidad y gestión de stock en Lima para
-                                        disponibilidad inmediata.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
+                        <div class="relative puzzle-card-container lg:order-2 md:order-2" data-aos="fade-right"
+                            data-aos-delay="200">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">2</span>
                                 </div>
-                            </div>
-
-                            <div class="relative puzzle-card-container" data-aos="fade-left" data-aos-delay="800">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">5</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Transporte Logístico
-                                        (Nacional)</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i
-                                            class="fas fa-truck-ramp-box icon-anim"></i></div>
-                                    <p class="text-sm text-gray-600">Logística de última milla eficiente en Lima y
-                                        provincias a los puntos de venta.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Producción Sostenible
+                                </h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-industry icon-anim"></i>
                                 </div>
-                            </div>
-
-                            <div class="relative puzzle-card-container" data-aos="fade-left" data-aos-delay="1000">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">6</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Punto de
-                                        Venta/Distribuidor</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i class="fas fa-store icon-anim"></i>
-                                    </div>
-                                    <p class="text-sm text-gray-600">Entrega de pedidos B2B mayoristas a distribuidores
-                                        y tiendas finales.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
-                                </div>
+                                <p class="text-sm text-gray-600">Procesos de baja emisión de carbono y gestión de
+                                    residuos. Calidad certificada.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
                             </div>
                         </div>
 
-                        <div
-                            class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative puzzle-row puzzle-row-3 puzzle-row-lg-3 puzzle-row-md-2 md:grid-cols-2">
-                            <div class="relative puzzle-card-container lg:col-start-2 lg:col-span-1 md:col-start-1 md:col-span-2"
-                                data-aos="fade-up" data-aos-delay="1200">
-                                <div class="puzzle-card">
-                                    <div
-                                        class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
-                                        <span class="font-bold text-sm">7</span>
-                                    </div>
-                                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Cliente Final y
-                                        Cierre de Ciclo</h3>
-                                    <div class="text-brand-main text-3xl mb-3"><i
-                                            class="fas fa-circle-notch icon-anim"></i></div>
-                                    <p class="text-sm text-gray-600">El envase se convierte en compost, reintegrándose a
-                                        la tierra y cerrando el ciclo.</p>
-                                    <div class="h-connector"></div>
-                                    <div class="v-connector"></div>
+                        <div class="relative puzzle-card-container lg:order-3 md:order-3" data-aos="fade-right"
+                            data-aos-delay="400">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">3</span>
                                 </div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Transporte Logístico
+                                    (Origen)</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-ship icon-anim"></i>
+                                </div>
+                                <p class="text-sm text-gray-600">Importación optimizada de carga y selección de
+                                    rutas con menor huella.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
                             </div>
                         </div>
+
+                        <div class="relative puzzle-card-container lg:order-4 md:order-4" data-aos="fade-left"
+                            data-aos-delay="600">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">4</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Centro de
+                                    Distribución/Almacén</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-warehouse icon-anim"></i>
+                                </div>
+                                <p class="text-sm text-gray-600">Control de calidad y gestión de stock en Lima para
+                                    disponibilidad inmediata.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
+                            </div>
+                        </div>
+
+                        <div class="relative puzzle-card-container lg:order-5 md:order-5" data-aos="fade-left"
+                            data-aos-delay="800">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">5</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Transporte Logístico
+                                    (Nacional)</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i
+                                        class="fas fa-truck-ramp-box icon-anim"></i></div>
+                                <p class="text-sm text-gray-600">Logística de última milla eficiente en Lima y
+                                    provincias a los puntos de venta.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
+                            </div>
+                        </div>
+
+                        <div class="relative puzzle-card-container lg:order-6 md:order-6" data-aos="fade-left"
+                            data-aos-delay="1000">
+                            <div class="puzzle-card">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">6</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Punto de
+                                    Venta/Distribuidor</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-store icon-anim"></i>
+                                </div>
+                                <p class="text-sm text-gray-600">Entrega de pedidos B2B mayoristas a distribuidores
+                                    y tiendas finales.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
+                            </div>
+                        </div>
+
+                        <div class="relative puzzle-card-container lg:col-start-2 lg:col-span-1 lg:order-7 md:col-start-1 md:col-span-2 md:order-7 flex justify-center w-full"
+                            data-aos="fade-up" data-aos-delay="1200">
+                            <div class="puzzle-card w-full lg:w-auto max-w-lg">
+                                <div
+                                    class="w-10 h-10 bg-brand-light text-brand-dark rounded-full flex items-center justify-center text-xl mb-3 border-2 border-brand-main/40 shrink-0">
+                                    <span class="font-bold text-sm">7</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Cliente Final y
+                                    Cierre de Ciclo</h3>
+                                <div class="text-brand-main text-3xl mb-3"><i class="fas fa-circle-notch icon-anim"></i>
+                                </div>
+                                <p class="text-sm text-gray-600">El envase se convierte en compost, reintegrándose a
+                                    la tierra y cerrando el ciclo.</p>
+                                <div class="h-connector"></div>
+                                <div class="v-connector"></div>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </section>
