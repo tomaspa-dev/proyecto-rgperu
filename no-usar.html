@@ -3,8 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description"
+        content="RG Distribuciones Perú, importación y distribución mayorista de envases ecológicos y biocompostables para el canal tradicional. Nuestra Misión es abastecer a distribuidores y negocios con productos sostenibles de alta calidad, asesoría técnica y servicio puntual.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="manifest" href="/site.webmanifest" /> -->
+
+    <link rel="icon" href="/favicon.ico" />
     <title>RG Distribuciones Perú - Sostenibilidad</title>
+    <meta name="author" content="tomastech" />
+    <meta property="og:site_name" content="RG Distribuciones Perú" />
+    <link rel="canonical" href="https://rgdistribucionesperu.com" />
+    <link rel="home" href="https://rgdistribucionesperu.com" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +41,8 @@
                             dark: '#064e3b',   /* Verde Bosque Profundo */
                             main: '#10b981',   /* Verde Esmeralda */
                             hover: '#059669',  /* Verde Hover */
-                            light: '#ecfdf5',  /* Verde Claro Fondo */
+                            // Ajuste del color light para que sea más claro y visible (casi amarillo)
+                            light: '#f0fdf4',  /* Verde Claro - Base más blanca/amarillenta */
                             accent: '#84cc16'  /* Lima */
                         }
                     },
@@ -68,7 +80,7 @@
                     },
                     animation: {
                         'icon-pulse': 'pulse 0.5s ease-in-out',
-                        'fade-in-out': 'fadeInOut 3s ease-in-out forwards', /* Duración Tooltip a 3s */
+                        'fade-in-out': 'fadeInOut 4s ease-in-out forwards', /* Duración Tooltip a 4s */
                         'fade-in': 'fadeIn 0.5s ease-out forwards',
                         'slide-in-up': 'slideInUp 0.6s ease-out forwards',
                         'grow-line': 'growLine 1s ease-out forwards',
@@ -126,9 +138,9 @@
         /* Estilo para la notificación de copia (Tooltip) - COLORES Y DURACIÓN CORREGIDOS */
         .copy-notification {
             position: fixed;
-            /* Corregido a fixed para evitar problemas de scroll */
-            background-color: theme('colors.brand.light');
-            /* Fondo Verde Claro */
+            /* Usar fixed para que no se mueva con el scroll */
+            background-color: #ecfccb;
+            /* Fondo Verde Claro/Casi Amarillo */
             color: theme('colors.brand.dark');
             /* Texto Verde Oscuro */
             padding: 8px 15px;
@@ -143,13 +155,41 @@
             opacity: 0;
             pointer-events: none;
             border: 1px solid theme('colors.brand.main');
-            animation: fadeInOut 3s ease-in-out forwards;
-            /* Aseguramos que la animación se aplique */
+            animation: fadeInOut 4s ease-in-out forwards;
+            /* Aseguramos que la animación de 4s se aplique */
         }
 
         .copy-notification .icon {
             color: theme('colors.brand.main');
             font-size: 1.1rem;
+        }
+
+        /* Estilo para el botón de play del video (AÑADIDO PARA SOLUCIONAR EL REQUISITO 3) */
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Semi-transparente */
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 20;
+            border: 2px solid white;
+        }
+
+        .video-play-button:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         /* ESTILOS PARA EL NUEVO TIMELINE DE PUZZLE (7 PASOS) */
@@ -178,7 +218,7 @@
             animation: iconBounce 0.6s ease-in-out;
         }
 
-        /* --- Conectores Base --- */
+        /* --- Conectores Horizontales --- */
         .h-connector {
             position: absolute;
             top: 50%;
@@ -186,10 +226,22 @@
             background-color: theme('colors.brand.main');
             z-index: 5;
             transform: translateY(-50%);
-            display: none;
-            /* Por defecto oculto, se muestra en media queries */
         }
 
+        /* Fila 1: 1 -> 2 -> 3 (Left to Right) */
+        .puzzle-row-1 .puzzle-card:not(:last-child) .h-connector {
+            left: calc(100%);
+            width: 24px;
+            /* Ancho del gap (6) */
+        }
+
+        /* Fila 2: 4 -> 5 -> 6 (Left to Right) - AJUSTADO PARA NUEVO ORDEN */
+        .puzzle-row-2 .puzzle-card:not(:last-child) .h-connector {
+            left: calc(100%);
+            width: 24px;
+        }
+
+        /* --- Conectores Verticales (entre filas) --- */
         .v-connector {
             position: absolute;
             left: 50%;
@@ -199,10 +251,43 @@
             /* Separación entre filas */
             background-color: theme('colors.brand.main');
             z-index: 5;
-            display: none;
-            /* Por defecto oculto, se muestra en media queries */
         }
 
+        /* Conectores que van de Fila 1 a Fila 2 */
+        .puzzle-row-1 .v-connector {
+            bottom: -60px;
+        }
+
+        /* Conector que va de Fila 2 (centro) a Fila 3 (centro) */
+        /* En el nuevo orden, solo el tercer elemento de la Fila 2 (Paso 6) necesita conectar */
+        .puzzle-row-2 .v-connector {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            /* Por defecto en el centro de la tarjeta */
+            transform: translateX(-50%);
+        }
+
+        /* Ocultar los conectores innecesarios en Desktop */
+        /* En Fila 1, la tercera tarjeta no tiene conector H */
+        .puzzle-row-1 .puzzle-card:nth-child(3) .h-connector {
+            display: none;
+        }
+
+        /* En Fila 2, la tercera tarjeta (Paso 6) no tiene conector H */
+        .puzzle-row-2 .puzzle-card:nth-child(3) .h-connector {
+            display: none;
+        }
+
+        /* En Fila 2, solo la TERCERA tarjeta (Paso 6) necesita conector V hacia Fila 3 */
+        .puzzle-row-2 .puzzle-card:not(:nth-child(3)) .v-connector {
+            display: none;
+        }
+
+        /* En Fila 3, la tarjeta no necesita conector V */
+        .puzzle-row-3 .v-connector {
+            display: none;
+        }
 
         /* --- MEDIA QUERIES (Responsividad) --- */
 
@@ -311,11 +396,11 @@
 
     <div x-data="{ notification: { show: false, message: '', x: 0, y: 0 } }">
 
-        <div x-show="notification.show" x-transition:enter="ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95" class="copy-notification fixed" /* Añadido 'fixed' para mejor
-            posición en scroll */ :style="{ left: `${notification.x}px`, top: `${notification.y}px` }"
+        <div x-show="notification.show" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-2" class="copy-notification fixed" /* Añadido 'fixed' para
+            mejor posición en scroll */ :style="{ left: `${notification.x}px`, top: `${notification.y}px` }"
             style="display: none; z-index: 10000;">
             <i class="icon fas fa-clipboard-check"></i>
             <span x-text="notification.message"></span>
@@ -332,31 +417,25 @@
 
                     <img src="img/logo.png" alt="RG"
                         class="h-14 md:h-12 lg:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
-                        :class="{ 'block': !scrolled, 'hidden xl:block': scrolled }"
-                        x-show="window.innerWidth < 1280 || scrolled">
+                        :class="scrolled ? 'h-10 md:h-10 lg:h-12' : 'h-14 md:h-12 lg:h-14'">
 
-                    <div class="flex-col justify-center whitespace-nowrap ml-3"
-                        :class="{ 'flex': !scrolled && window.innerWidth >= 1280, 'hidden': scrolled }"
-                        x-show="!scrolled && window.innerWidth >= 1280">
+                    <div class="flex-col justify-center whitespace-nowrap ml-3 hidden xl:flex" x-show="!scrolled">
                         <h1 class="font-heading font-extrabold text-white text-lg leading-none tracking-tight">
                             RG Distribuciones Perú
                         </h1>
-                        <span class="text-[11px] font-bold tracking-widest uppercase mt-0.5 text-brand-accent">
+                        <span class="text-[12px] font-bold tracking-widest uppercase mt-0.5 text-brand-accent">
                             Distribuimos Sostenibilidad
                         </span>
                     </div>
 
-                    <div class="flex-col justify-center whitespace-nowrap ml-3 hidden"
-                        :class="{ 'flex': scrolled && window.innerWidth >= 1280, 'hidden': !scrolled }"
-                        x-show="scrolled && window.innerWidth >= 1280">
+                    <div class="flex-col justify-center whitespace-nowrap ml-3 hidden xl:flex" x-show="scrolled">
                         <h1 class="font-heading font-extrabold text-gray-800 text-lg leading-none tracking-tight">
                             RG Distribuciones Perú
                         </h1>
-                        <span class="text-[11px] font-bold tracking-widest uppercase mt-0.5 text-brand-main">
+                        <span class="text-[12px] font-bold tracking-widest uppercase mt-0.5 text-brand-main">
                             Distribuimos Sostenibilidad
                         </span>
                     </div>
-
                 </a>
 
                 <nav class="hidden md:flex gap-6 lg:gap-8 items-center">
@@ -383,7 +462,6 @@
             <div x-show="mobileMenuOpen" style="display: none;" x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
                 x-transition:leave="transition ease-in duration-300"
-                x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-full"
                 class="fixed inset-y-0 right-0 w-[80%] max-w-sm bg-white/90 backdrop-blur-sm shadow-2xl z-50 flex flex-col p-8 md:hidden h-screen">
 
                 <div class="flex justify-end mb-8">
@@ -411,11 +489,10 @@
                 </nav>
             </div>
             <div x-show="mobileMenuOpen" @click="mobileMenuOpen = false"
-                class="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm" style="display: none;"></div>
+                class="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"></div>
         </header>
 
         <section id="inicio" class="relative h-screen flex items-center overflow-hidden bg-gray-900" x-data="{ 
-                     // IMÁGENES ACTUALIZADAS
                      images: ['img/img10.webp', 'img/img12.webp', 'img/img11.webp', 'img/img9.webp'], 
                      active: 0 
                  }" x-init="setInterval(() => { active = (active + 1) % images.length }, 5000)">
@@ -445,18 +522,18 @@
                         en Todo el Perú
                     </h1>
 
-                    <p class="text-lg md:text-xl text-gray-100 mb-10 font-light leading-relaxed max-w-2xl opacity-90">
+                    <p class="text-base md:text-lg text-gray-100 mb-10 font-light leading-relaxed max-w-2xl opacity-90">
                         Importación y distribución mayorista de envases ecológicos y biocompostables para el canal
                         tradicional.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-5">
                         <a href="#contacto"
-                            class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-full shadow-lg hover:bg-white hover:text-brand-main hover:scale-105 transition-all duration-300 text-center">
+                            class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-full shadow-lg hover:bg-white hover:text-brand-main hover:scale-105 transition-all duration-300 text-center text-sm md:text-base">
                             Solicitar Cotización
                         </a>
                         <a href="#servicios"
-                            class="px-8 py-4 bg-transparent border border-white/70 text-white font-bold rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 text-center">
+                            class="px-8 py-4 bg-transparent border border-white/70 text-white font-bold rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 text-center text-sm md:text-base">
                             Nuestros Productos
                         </a>
                     </div>
@@ -473,7 +550,7 @@
                         Sobre Nosotros
                         <span class="block h-1 w-20 bg-brand-main rounded-full mx-auto mt-3"></span>
                     </h2>
-                    <p class="text-lg text-gray-600 leading-relaxed mt-8">
+                    <p class="text-base md:text-lg text-gray-600 leading-relaxed mt-8">
                         RG Distribuciones Perú E.I.R.L. es una empresa especializada en la importación y distribución
                         mayorista de envases ecológicos y biocompostables en el canal tradicional.
                     </p>
@@ -487,7 +564,7 @@
                             <i class="fas fa-bullseye"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-3">Nuestra Misión</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">
+                        <p class="text-sm text-gray-600 leading-relaxed">
                             Abastecer a distribuidores y negocios con productos sostenibles de alta calidad, asesoría
                             técnica y servicio puntual.
                         </p>
@@ -500,7 +577,7 @@
                             <i class="fas fa-eye"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-3">Nuestra Visión</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">
+                        <p class="text-sm text-gray-600 leading-relaxed">
                             Ser la referencia nacional en soluciones ecológicas, promoviendo prácticas sostenibles para
                             el negocio y el ambiente.
                         </p>
@@ -513,7 +590,7 @@
                             <i class="fas fa-heart"></i>
                         </div>
                         <h3 class="font-heading font-bold text-xl text-gray-800 mb-3">Nuestros Valores</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">
+                        <p class="text-sm text-gray-600 leading-relaxed">
                             Responsabilidad ambiental, calidad en el servicio, transparencia comercial, innovación y
                             compromiso.
                         </p>
@@ -757,9 +834,8 @@
                                 <i class="fas fa-play"></i>
                             </div>
 
-                            <video x-ref="player" loop muted playsinline
-                                class="w-full h-auto object-cover aspect-video bg-black"
-                                :controls="playing ? true : false" @play="playing = true"
+                            <video x-ref="player" loop muted playsinline controls
+                                class="w-full h-auto object-cover aspect-video bg-black" @play="playing = true"
                                 @pause="if ($refs.player.currentTime === 0) playing = false" @ended="playing = false">
                                 <source src="videos/video-rg.mp4" type="video/mp4">
                                 Tu navegador no soporta videos HTML5.
@@ -779,7 +855,8 @@
                             <img src="img/joaquin-corporativo.webp" alt="Joaquín Gamboa"
                                 class="w-16 h-16 rounded-full object-cover border-2 border-brand-accent shadow-lg">
                             <div>
-                                <h4 class="font-heading font-bold text-lg text-white">Joaquín Santiago Gamboa</h4>
+                                <h4 class="font-heading font-bold text-lg text-white">Joaquín Santiago Gamboa Guillén
+                                </h4>
                                 <p class="text-brand-accent text-sm font-medium">Brand Strategist</p>
                             </div>
                         </div>
@@ -805,7 +882,8 @@
                                 class="fas fa-star star-anim"></i><i class="fas fa-star star-anim"></i><i
                                 class="fas fa-star star-anim"></i>
                         </div>
-                        <p class="text-gray-600 italic mb-6 leading-relaxed">"Modernizamos nuestro empaque y nuestros
+                        <p class="text-sm md:text-base text-gray-600 italic mb-6 leading-relaxed">"Modernizamos nuestro
+                            empaque y nuestros
                             clientes valoraron el cambio. El soporte y los tiempos superaron expectativas."</p>
                         <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
                             <div
@@ -826,7 +904,8 @@
                                 class="fas fa-star star-anim"></i><i class="fas fa-star star-anim"></i><i
                                 class="fas fa-star star-anim"></i>
                         </div>
-                        <p class="text-gray-600 italic mb-6 leading-relaxed">"La calidad es excelente y la asesoría nos
+                        <p class="text-sm md:text-base text-gray-600 italic mb-6 leading-relaxed">"La calidad es
+                            excelente y la asesoría nos
                             ayudó a comunicar mejor el valor ecológico a nuestros clientes."</p>
                         <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
                             <div
@@ -847,7 +926,8 @@
                                 class="fas fa-star star-anim"></i><i class="fas fa-star star-anim"></i><i
                                 class="fas fa-star star-anim"></i>
                         </div>
-                        <p class="text-gray-600 italic mb-6 leading-relaxed">"Trabajo con RG hace más de dos años; la
+                        <p class="text-sm md:text-base text-gray-600 italic mb-6 leading-relaxed">"Trabajo con RG hace
+                            más de dos años; la
                             consistencia logística ha sido clave para mantener mis inventarios."</p>
                         <div class="flex items-center gap-3 border-t border-gray-200 pt-4">
                             <div
@@ -960,13 +1040,14 @@
                     <div x-data="{ 
                             copyToClipboard: (text, message, event) => { 
                                 const rect = event.currentTarget.getBoundingClientRect();
+                                // Copiar al portapapeles
                                 navigator.clipboard.writeText(text).then(() => { 
                                     notification.message = message;
                                     // Calcular la posición del cursor o del elemento para el tooltip
                                     notification.x = event.clientX + 10; 
                                     notification.y = event.clientY - 20;
                                     notification.show = true; 
-                                    setTimeout(() => notification.show = false, 3000); // DURACIÓN A 3s
+                                    setTimeout(() => notification.show = false, 4000); // DURACIÓN A 4s (4000ms)
                                 });
                             },
                             hoveredEmail: false, 
@@ -990,12 +1071,13 @@
                                         <i class="fas fa-envelope text-sm"></i>
                                     </div>
                                     <div class="overflow-hidden">
-                                        <p class="font-bold text-sm text-white">Email</p>
+                                        <p class="font-bold text-sm text-white">Email Corporativo</p>
+                                        <p class="text-xs text-brand-light opacity-50">Clic para copiar</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-4 relative cursor-pointer group"
-                                    @click="copyToClipboard('joaquin.gamboa@rgdistribucionesperu.com', '¡Contacto Copiado!', $event)"
+                                    @click="copyToClipboard('joaquin.gamboa@rgdistribucionesperu.com', '¡Email Contacto Copiado!', $event)"
                                     @mouseenter="hoveredContact = true" @mouseleave="hoveredContact = false">
 
                                     <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-brand-accent shrink-0 transition-all duration-300"
@@ -1004,6 +1086,7 @@
                                     </div>
                                     <div>
                                         <p class="font-bold text-sm text-white">Contacto Directo</p>
+                                        <p class="text-xs text-brand-light opacity-50">Clic para copiar</p>
                                     </div>
                                 </div>
 
@@ -1084,7 +1167,7 @@
                             </div>
 
                             <button type="submit"
-                                class="w-full py-4 bg-brand-main text-white font-bold rounded-lg shadow-lg hover:bg-brand-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                                class="w-full py-4 bg-brand-main text-white font-bold rounded-lg shadow-lg hover:bg-brand-hover hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 flex justify-center items-center gap-2 text-sm md:text-base">
                                 <span>Enviar Mensaje</span>
                                 <i class="fas fa-paper-plane"></i>
                             </button>
@@ -1099,7 +1182,11 @@
                 <div class="grid md:grid-cols-4 gap-12 mb-16">
                     <div class="md:col-span-1">
 
-                        <div class="mb-6 flex flex-col items-center md:items-start">
+                        <a href="#inicio" class="flex items-center justify-center mb-6 md:hidden">
+                            <img src="img/logo.png" alt="RG" class="h-14 w-auto object-contain">
+                        </a>
+
+                        <div class="mb-6 hidden md:flex flex-col md:items-start">
                             <h1 class="font-heading font-extrabold text-white text-lg leading-none tracking-tight mt-2">
                                 RG Distribuciones Perú
                             </h1>
@@ -1161,13 +1248,26 @@
                         </ul>
                     </div>
 
-                    <div>
+                    <div x-data="{ 
+                            copyToClipboard: (text, message, event) => { 
+                                const rect = event.currentTarget.getBoundingClientRect();
+                                navigator.clipboard.writeText(text).then(() => { 
+                                    notification.message = message;
+                                    // Usamos event.clientX/Y para posicionar cerca del clic
+                                    notification.x = event.clientX + 10; 
+                                    notification.y = event.clientY - 20;
+                                    notification.show = true; 
+                                    setTimeout(() => notification.show = false, 4000); // 4s
+                                });
+                            },
+                        }">
                         <h4 class="font-heading font-bold text-lg mb-6 text-white">Contacto</h4>
                         <ul class="space-y-4 text-sm text-gray-300 font-light">
-                            <li class="flex items-start gap-3">
-                                <i class="fas fa-envelope mt-1 text-brand-main"></i>
-                                <a href="mailto:info@rgdistribucionesperu.com"
-                                    class="hover:text-white transition-colors">info@rgdistribucionesperu.com</a>
+                            <li class="flex items-start gap-3 relative cursor-pointer group hover:text-white transition-colors"
+                                @click="copyToClipboard('info@rgdistribucionesperu.com', 'Email Copiado', $event)">
+                                <i
+                                    class="fas fa-envelope mt-1 text-brand-main group-hover:text-brand-accent transition-colors"></i>
+                                <span class="transition-colors">Email Corporativo</span>
                             </li>
                         </ul>
                     </div>
