@@ -1281,6 +1281,7 @@
                         </div>
 
                         <div x-data="{ 
+                            timer: null,
                             copyToClipboard: (text, message, event) => { 
                                 const rect = event.currentTarget.getBoundingClientRect();
                                 navigator.clipboard.writeText(text).then(() => { 
@@ -1288,8 +1289,17 @@
                                     // Usamos event.clientX/Y para posicionar cerca del clic
                                     notification.x = event.clientX + 10; 
                                     notification.y = event.clientY - 20;
+                                    
+                                    // Limpiamos temporizador anterior si existe
+                                    if (this.timer) clearTimeout(this.timer);
+                                    
                                     notification.show = true; 
-                                    setTimeout(() => notification.show = false, 4000); // 4s
+                                    
+                                    // Guardamos la referencia del nuevo temporizador
+                                    this.timer = setTimeout(() => {
+                                        notification.show = false;
+                                        this.timer = null;
+                                    }, 4000); // 4s
                                 });
                             },
                         }">
