@@ -421,7 +421,7 @@
     </style>
 </head>
 
-<body class="text-gray-700 antialiased bg-white selection:bg-brand-main selection:text-white">
+<body class="text-gray-700 antialiased bg-white selection:bg-brand-main selection:text-white overflow-x-hidden">
 
     <div x-data="{ notification: { show: false, message: '', x: 0, y: 0 } }">
 
@@ -482,8 +482,8 @@
                 </nav>
 
                 <button @click="mobileMenuOpen = !mobileMenuOpen"
-                    class="md:hidden p-2 focus:outline-none transition-colors duration-300 z-50"
-                    :class="scrolled ? 'text-gray-800' : 'text-gray-800'">
+                    class="md:hidden p-2 focus:outline-none transition-colors duration-300"
+                    :class="scrolled ? 'text-gray-800' : 'text-white'">
                     <i class="fas fa-bars text-3xl"></i>
                 </button>
             </div>
