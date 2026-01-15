@@ -171,8 +171,12 @@
             a:active,
             button:active,
             a:focus,
-            button:focus {
-                background-color: inherit !important;
+            button:focus,
+            a:hover,
+            button:hover {
+                /* Forzamos que en móvil no se quede el color de hover */
+                transform: none !important;
+                transition: none !important;
             }
 
             /* Remover highlight azul en móviles */
@@ -447,7 +451,7 @@
             <span x-text="notification.message"></span>
         </div>
 
-        <header x-data="{ mobileMenuOpen: false, scrolled: false }"
+        <header x-data="{ mobileMenuOpen: false, scrolled: false }" x-init="scrolled = (window.pageYOffset > 20)"
             @scroll.window="scrolled = (window.pageYOffset > 20)"
             :class="scrolled ? 'bg-white/95 shadow-lg py-2' : 'bg-transparent py-4'"
             class="fixed w-full top-0 z-50 transition-all duration-500 ease-in-out">
@@ -569,11 +573,11 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#contacto"
+                        <a href="#contacto" onfocus="this.blur()" onclick="this.blur()"
                             class="px-8 py-4 bg-brand-accent text-brand-dark font-bold rounded-full shadow-lg hover:bg-white hover:text-brand-main hover:scale-105 transition-all duration-300 text-center text-sm md:text-base">
                             Solicitar Cotización
                         </a>
-                        <a href="#servicios"
+                        <a href="#servicios" onfocus="this.blur()" onclick="this.blur()"
                             class="px-8 py-4 bg-transparent border border-white/70 text-white font-bold rounded-full hover:bg-white hover:text-brand-dark transition-all duration-300 text-center text-sm md:text-base">
                             Nuestros Productos
                         </a>
