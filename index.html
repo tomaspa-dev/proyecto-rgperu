@@ -159,9 +159,19 @@
         }
 
 
-        /* Evitar scroll horizontal en móviles */
+        /* Evitar scroll horizontal en móviles - CRÍTICO */
+        html,
         body {
             overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        /* Asegurar que todas las secciones respeten el ancho del viewport */
+        section,
+        main,
+        footer {
+            overflow-x: hidden;
+            max-width: 100vw;
         }
 
         /* Estilo para la notificación de copia (Tooltip) - COLORES Y DURACIÓN CORREGIDOS */
