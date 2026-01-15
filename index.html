@@ -482,7 +482,8 @@
                 </nav>
 
                 <button @click="mobileMenuOpen = !mobileMenuOpen"
-                    class="md:hidden p-2 -mr-2 focus:outline-none transition-colors duration-300 text-gray-800">
+                    class="md:hidden p-2 mr-2 focus:outline-none transition-colors duration-300"
+                    :class="scrolled ? 'text-gray-800' : 'text-white'">
                     <i class="fas fa-bars text-3xl"></i>
                 </button>
             </div>
