@@ -165,6 +165,22 @@
             overflow-x: hidden;
         }
 
+        /* Prevenir estados stuck de botones en dispositivos táctiles */
+        @media (hover: none) and (pointer: coarse) {
+
+            a:active,
+            button:active,
+            a:focus,
+            button:focus {
+                background-color: inherit !important;
+            }
+
+            /* Remover highlight azul en móviles */
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
         /* Estilo para la notificación de copia (Tooltip) - COLORES Y DURACIÓN CORREGIDOS */
         .copy-notification {
             position: fixed;
